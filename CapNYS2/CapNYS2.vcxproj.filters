@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CapNYS2.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CapNYS2Dlg.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Header.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="erslib.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GetNewID.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GetID.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SetMemo.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Dayretr.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CTrim.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Trans.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="mp3infp_ExportFunc.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CMakeDB.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CapNYS2.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CapNYS2Dlg.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GetNewID.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GetID.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SetMemo.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="threads.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="timer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Dayretr.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CTrim.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Trans.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CMakeDB.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CapNYS2.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\CapNYS2.rc2">
+      <Filter>リソース ファイル</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\CapNYS2.ico">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\button_gomi.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\button_alllist.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\button_changeid.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\button_curplay.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\button_exit.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\button_head.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\button_memo.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\button_newid.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\button_resetrec.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\button_start.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\button_stop.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\button_trim.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\number.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\button_record.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\bitmap2.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\bm_save.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\bitmap3.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\backup.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\bmp00001.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\smoothoff.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\deint.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\deinton.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\face1.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\face2.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\smoothon.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\bmp00002.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="res\bitmap4.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
