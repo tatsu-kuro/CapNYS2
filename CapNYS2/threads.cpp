@@ -785,6 +785,12 @@ UINT iPhoneThread(LPVOID dummy)
 	WSACleanup();
 	return 0;
 }
+void resetM5(int arcom) {
+	ERS_Putc(arcom, 0x80);
+	ERS_Putc(arcom, 0x01);
+	ERS_Putc(arcom, 0x00);
+	ERS_Putc(arcom, 0x00);
+}
 
 UINT ArduinoM5Thread_M5(LPVOID dummy)
 {
@@ -798,6 +804,7 @@ UINT ArduinoM5Thread_M5(LPVOID dummy)
 
 	comErr=ERS_OpenN(arcom, 4096, 4096);
 	if (comErr == 0) {//0x8001 0x0000
+//		resetM5(arcom);
 		ERS_Putc(arcom, 0x80);
 		ERS_Putc(arcom, 0x01);
 		ERS_Putc(arcom, 0x00);
@@ -809,6 +816,7 @@ UINT ArduinoM5Thread_M5(LPVOID dummy)
 
 	while (ArduinoM5ThreadF && strstr(ptxt[SENM], "1")) {
 		ERS_Recv(arcom, buf, 48);
+		sprintf_s(m5text, "%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X", buf[0], buf[1], buf[38], buf[39], buf[40], buf[41], buf[42], buf[43], buf[44], buf[45], buf[46], buf[47]);
 		if (buf[0] == 1 && buf[1] == 0) {//headerが不正のときは読まない
 
 			f0 = *((float*)&buf[32]);
@@ -831,8 +839,18 @@ UINT ArduinoM5Thread_M5(LPVOID dummy)
 			mnq2 = f2;
 			mnq3 = f3;
 		}
-		sprintf_s(m5text, "%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X", buf[0], buf[1], buf[38], buf[39], buf[40], buf[41], buf[42], buf[43], buf[44], buf[45], buf[46], buf[47]);
-		ERS_ClearRecv(arcom);
+		else {
+			int n = 1;
+			for (int i = 1; i < 47; i++) {
+				if (buf[i] == 1 && buf[(i + 1)] == 0) {
+					n = i;
+					break;
+				}
+			}
+			ERS_Recv(arcom, buf, n);//頭出し不良ならnByteずらす 9/8
+		}
+//		sprintf_s(m5text, "%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X", buf[0], buf[1], buf[38], buf[39], buf[40], buf[41], buf[42], buf[43], buf[44], buf[45], buf[46], buf[47]);
+//		ERS_ClearRecv(arcom);
 		if (buf[0] == 2) {//m5 button
 //			ArduinoThreadf = false;
 		//	ERS_Recv(arcom, buf, 5);
@@ -867,8 +885,8 @@ UINT ArduinoM5Thread(LPVOID dummy)
 	Sleep(10);//おかないと	ERS_Putc(arcom, 'r');　をうけつけないようだ
 	ERS_Putc(arcom, 'r');
 	while (ERS_CheckRecv(arcom) == 0) {
-	Sleep(10);
-	ERS_Putc(arcom, 'r');
+		Sleep(10);
+		ERS_Putc(arcom, 'r');
 	}
 
 	sprintf_s(m5text, "%s", "MPU6050_start");
@@ -903,88 +921,17 @@ UINT ArduinoM5Thread(LPVOID dummy)
 			mnq3 = f3;
 		}
 		else {
-			ERS_Recv(arcom, buf, 1);//頭出し不良なら1Byteずらす
+			int n = 1;
+			for (int i = 1; i < 13; i++) {
+				if (buf[i] == 0x24 && buf[(i + 1)] == 2) {
+					n = i;
+					break;
+				}
+			}
+			ERS_Recv(arcom, buf, n);//頭出し不良ならnByteずらす 9/8
 		}
 	}
 	if(comErr==0)ERS_Close(arcom);
 	return 0;
 }
-
-
-//オリジナルをコピーしたものだが、多少動作が不安定。
-/*UINT ArduinoM5Thread(LPVOID dummy)
-{
-	int ch;
-	int comErr;
-	int arcom;
-	static int interval;
-	unsigned char teapotPacket[15];
-	float f0, f1, f2, f3;
-	static int serialCount = 0, aligned = 0;
-	ArduinoM5ThreadF = true;
-	arcom = Para0(COMP);
-
-	comErr = ERS_OpenN(arcom, 4096, 4096);
-	//	sprintf_s(m5text, "port:%d", ch);
-	ERS_Putc(arcom,'r');
-
-	while (ArduinoM5ThreadF && strstr(ptxt[SENM], "2")) {
-		//		cnt++;
-		//		if(cnt++%1000==0)
-		//上でどうか。それともデータが来てないときはスレッドを再起動するか。
-		ch = ERS_Getc(arcom);
-		if (ch == '$') {
-			serialCount = 0;  // this will help with alignment
-		}
-		if (aligned < 4) {
-			// make sure we are properly aligned on a 14-byte packet
-			if (serialCount == 0) {
-				if (ch == '$') aligned++; else aligned = 0;
-			}
-			else if (serialCount == 1) {
-				if (ch == 2) aligned++; else aligned = 0;
-			}
-			else if (serialCount == 12) {
-				if (ch == '\r') aligned++; else aligned = 0;
-			}
-			else if (serialCount == 13) {
-				if (ch == '\n') aligned++; else aligned = 0;
-			}
-			//println(ch + " " + aligned + " " + serialCount);
-			serialCount++;
-			if (serialCount == 14) serialCount = 0;
-		}
-		else {
-			if (serialCount > 0 || ch == '$') {
-				teapotPacket[serialCount++] = (char)ch;
-				if (serialCount == 14) {
-					serialCount = 0; // restart packet byte position
-					f0 = ((teapotPacket[2] << 8) | teapotPacket[3]) / 16384.0f;
-					f1 = ((teapotPacket[4] << 8) | teapotPacket[5]) / 16384.0f;
-					f2 = ((teapotPacket[6] << 8) | teapotPacket[7]) / 16384.0f;
-					f3 = ((teapotPacket[8] << 8) | teapotPacket[9]) / 16384.0f;
-					if (f0 >= 2)f0 = -4 + f0;
-					if (f1 >= 2)f1 = -4 + f1;
-					if (f2 >= 2)f2 = -4 + f2;
-					if (f3 >= 2)f3 = -4 + f3;
-					nq0 = f0;
-					nq1 = f1;
-					nq2 = f2;
-					nq3 = f3;
-					MultQuat(&f0, &f1, &f2, &f3, cq0, cq1, cq2, cq3, nq0, nq1, nq2, nq3);
-					QuatXchan(&f0, &f1, &f2, &f3);
-
-					mnq0 = f0;
-					mnq1 = f1;
-					mnq2 = f2;
-					mnq3 = f3;
-					ERS_ClearRecv(arcom);
-				}
-			}
-		}
-	}
-	if (comErr == 0)ERS_Close(arcom);
-	return 0;
-}*/
-
 

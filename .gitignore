@@ -4,6 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # User-specific files
+*.wmv
 *.rsuser
 *.suo
 *.user
@@ -23,6 +24,7 @@ mono_crash.*
 [Rr]eleases/
 x64/
 x86/
+CapNYS2/gazo/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
