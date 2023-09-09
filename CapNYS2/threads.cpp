@@ -785,12 +785,12 @@ UINT iPhoneThread(LPVOID dummy)
 	WSACleanup();
 	return 0;
 }
-void resetM5(int arcom) {
-	ERS_Putc(arcom, 0x80);
-	ERS_Putc(arcom, 0x01);
-	ERS_Putc(arcom, 0x00);
-	ERS_Putc(arcom, 0x00);
-}
+//void resetM5(int arcom) {
+//	ERS_Putc(arcom, 0x80);
+//	ERS_Putc(arcom, 0x01);
+//	ERS_Putc(arcom, 0x00);
+//	ERS_Putc(arcom, 0x00);
+//}
 
 UINT ArduinoM5Thread_M5(LPVOID dummy)
 {
@@ -813,7 +813,7 @@ UINT ArduinoM5Thread_M5(LPVOID dummy)
 	else {
 		return 0;
 	}
-
+	ERS_ClearRecv(arcom);
 	while (ArduinoM5ThreadF && strstr(ptxt[SENM], "1")) {
 		ERS_Recv(arcom, buf, 48);
 		sprintf_s(m5text, "%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X", buf[0], buf[1], buf[38], buf[39], buf[40], buf[41], buf[42], buf[43], buf[44], buf[45], buf[46], buf[47]);
@@ -839,6 +839,12 @@ UINT ArduinoM5Thread_M5(LPVOID dummy)
 			mnq2 = f2;
 			mnq3 = f3;
 		}
+	//	else if (buf[0] == 2) {//m5 button
+	//		ERS_Putc(arcom, 0x80);
+	//		ERS_Putc(arcom, 0x01);
+	//		ERS_Putc(arcom, 0x00);
+	//		ERS_Putc(arcom, 0x00);
+	//	}
 		else {
 			int n = 1;
 			for (int i = 1; i < 47; i++) {
@@ -851,11 +857,15 @@ UINT ArduinoM5Thread_M5(LPVOID dummy)
 		}
 //		sprintf_s(m5text, "%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X", buf[0], buf[1], buf[38], buf[39], buf[40], buf[41], buf[42], buf[43], buf[44], buf[45], buf[46], buf[47]);
 //		ERS_ClearRecv(arcom);
-		if (buf[0] == 2) {//m5 button
+		//if (buf[0] == 2) {//m5 button
+		//	ERS_Putc(arcom, 0x80);
+		//	ERS_Putc(arcom, 0x01);
+		//	ERS_Putc(arcom, 0x00);
+		//	ERS_Putc(arcom, 0x00);
 //			ArduinoThreadf = false;
 		//	ERS_Recv(arcom, buf, 5);
 		//	ERS_ClearRecv(arcom);
-		}
+		//}
 	}
 
 	if(comErr==0)ERS_Close(arcom);
@@ -921,7 +931,14 @@ UINT ArduinoM5Thread(LPVOID dummy)
 			mnq3 = f3;
 		}
 		else {
-			ERS_Recv(arcom, buf, 1);//頭出し不良なら1Byteずらす
+			int n = 1;
+			for (int i = 1; i < 13; i++) {
+				if (buf[i] == 1 && buf[(i + 1)] == 0) {
+					n = i;
+					break;
+				}
+			}
+			ERS_Recv(arcom, buf, n);//頭出し不良ならnByteずらす
 		}
 	}
 	if(comErr==0)ERS_Close(arcom);
