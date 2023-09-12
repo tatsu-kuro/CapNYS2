@@ -4,3 +4,6 @@
 00000005<nys>2023-09-08 23:33<nys>0<nys><nys>C:\Users\tatsu\Documents\Visual Studio 2017\CapNYS_20230727\CapNYS2\gazou\0000000520230908233318.wmv
 00000005<nys>2023-09-09 08:09<nys>0<nys><nys>C:\Users\tatsu\Documents\Visual Studio 2017\CapNYS_20230727\CapNYS2\gazou\0000000520230909080931.wmv
 00000005<nys>2023-09-09 13:13<nys>0<nys><nys>C:\Users\tatsu\Documents\Visual Studio 2017\CapNYS_20230727\CapNYS2\gazou\0000000520230909131356.wmv
+00000005<nys>2023-09-11 23:07<nys>0<nys><nys>C:\Users\tatsu\Documents\Visual Studio 2017\CapNYS_20230909\CapNYS2\gazou\0000000520230911230756.wmv
+00000005<nys>2023-09-12 13:48<nys>0<nys><nys>C:\Users\tatsu\Documents\Visual Studio 2017\CapNYS_20230909\CapNYS2\gazou\0000000520230912134806.wmv
+00000000<nys>2023-09-12 14:09<nys>0<nys><nys>C:\Users\tatsu\Documents\Visual Studio 2017\CapNYS_20230909\CapNYS2\gazou\0000000020230912140918.wmv

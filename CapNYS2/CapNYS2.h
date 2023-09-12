@@ -9,7 +9,7 @@
 #endif
 
 #include "resource.h"		// ƒƒCƒ“ ƒVƒ“ƒ{ƒ‹
-#define Vertxt "CapNYS V6.4 - 2023/9/9"
+#define Vertxt "CapNYS V6.4 - 2023/9/12"
 #define English false
 
 // CCapNYS2App:

@@ -785,15 +785,16 @@ UINT iPhoneThread(LPVOID dummy)
 	WSACleanup();
 	return 0;
 }
-//void resetM5(int arcom) {
-//	ERS_Putc(arcom, 0x80);
-//	ERS_Putc(arcom, 0x01);
-//	ERS_Putc(arcom, 0x00);
-//	ERS_Putc(arcom, 0x00);
-//}
+void M5GyroOffset(int arcom) {
+		ERS_Putc(arcom, 0x01);
+		ERS_Putc(arcom, 0x80);
+		ERS_Putc(arcom, 0x00);
+		ERS_Putc(arcom, 0x00);
+}
 
 UINT ArduinoM5Thread_M5(LPVOID dummy)
 {
+	static bool initGyro = false;
 	int arcom;
 	int comErr;
 	unsigned char buf[50];
@@ -804,11 +805,10 @@ UINT ArduinoM5Thread_M5(LPVOID dummy)
 
 	comErr=ERS_OpenN(arcom, 4096, 4096);
 	if (comErr == 0) {//0x8001 0x0000
-//		resetM5(arcom);
-		ERS_Putc(arcom, 0x80);
-		ERS_Putc(arcom, 0x01);
-		ERS_Putc(arcom, 0x00);
-		ERS_Putc(arcom, 0x00);
+		if (initGyro == false) {
+			M5GyroOffset(arcom);//最初の１回だけoffsetを設定。
+			initGyro = true;
+		}		
 	}
 	else {
 		return 0;
@@ -816,6 +816,7 @@ UINT ArduinoM5Thread_M5(LPVOID dummy)
 	ERS_ClearRecv(arcom);
 	while (ArduinoM5ThreadF && strstr(ptxt[SENM], "1")) {
 		ERS_Recv(arcom, buf, 48);
+	
 		sprintf_s(m5text, "%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X,%02X", buf[0], buf[1], buf[38], buf[39], buf[40], buf[41], buf[42], buf[43], buf[44], buf[45], buf[46], buf[47]);
 		if (buf[0] == 1 && buf[1] == 0) {//headerが不正のときは読まない
 
