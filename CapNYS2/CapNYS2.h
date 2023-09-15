@@ -9,8 +9,8 @@
 #endif
 
 #include "resource.h"		// メイン シンボル
-#define Vertxt "CapNYS V6.4 - 2023/9/12"
-#define English false
+#define Vertxt "CapNYS V6.4 - 2023/9/15"
+#define English true
 
 // CCapNYS2App:
 // このクラスの実装については、CapNYS2.cpp を参照してください。

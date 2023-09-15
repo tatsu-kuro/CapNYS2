@@ -866,7 +866,13 @@ UINT ArduinoM5Thread_M5(LPVOID dummy)
 //			ArduinoThreadf = false;
 		//	ERS_Recv(arcom, buf, 5);
 		//	ERS_ClearRecv(arcom);
+		// 
 		//}
+		if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(VK_SHIFT)) {
+			//CTRL && Shift キーが押されている 
+			M5GyroOffset(arcom);	
+		}
+		
 	}
 
 	if(comErr==0)ERS_Close(arcom);
